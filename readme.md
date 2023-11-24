@@ -22,6 +22,9 @@
 - Architecture
 	- https://github.com/Azure-Samples/miyagi
 
+Samples:
+- https://github.com/MicrosoftDocs/semantic-kernel-docs
+
 ### appsetting.json
 ```
   "AzureChatCompletionService": {
