@@ -37,7 +37,7 @@ namespace OpenAIWorkshop.WebAPI.Controllers
                     {"FrequencyPenalty", 0.0}
                 }
             };
-            var getShortDescriptionFunction = 
+            var getShortDescriptionFunction =
                 _kernel.CreateSemanticFunction(prompt, requestSettings, functionName: "GetShortDescription");
 
             //string userQuestion = "I want to buy a new car";
@@ -45,5 +45,18 @@ namespace OpenAIWorkshop.WebAPI.Controllers
 
             return Ok(result.ToString());
         }
+
+        [HttpGet("native-function")]
+        public async Task<IActionResult> NativeFunction(int number)
+        {
+            var mathPlugin = _kernel.ImportFunctions(new Plugins.MathPlugin(), "MathPlugin");
+
+            var result = await _kernel.RunAsync(number.ToString(), mathPlugin["Sqrt"]);
+
+            return Ok(result.ToString());
+        }
+
     }
+
+        
 }
