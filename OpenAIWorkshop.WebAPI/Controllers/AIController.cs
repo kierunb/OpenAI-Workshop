@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
+using Microsoft.SemanticKernel.Planners;
+using System.Text.Json;
 
 namespace OpenAIWorkshop.WebAPI.Controllers
 {
@@ -52,6 +54,27 @@ namespace OpenAIWorkshop.WebAPI.Controllers
             var mathPlugin = _kernel.ImportFunctions(new Plugins.MathPlugin(), "MathPlugin");
 
             var result = await _kernel.RunAsync(number.ToString(), mathPlugin["Sqrt"]);
+
+            return Ok(result.ToString());
+        }
+
+
+        [HttpGet("planner")]
+        public async Task<IActionResult> Planner(string ask)
+        {
+            var mathPlugin = _kernel.ImportFunctions(new Plugins.MathPlugin(), "MathPlugin");
+
+            // Create a planner
+            var planner = new SequentialPlanner(_kernel);
+
+            //var ask = "If my investment of 2130.23 dollars increased by 23%, how much would I have after I spent $5 on a latte?";
+            //var ask = "If my investment of 2130.23 dollars increased by 23%, how much would I have after I spent $5 on a latte?";
+            var plan = await planner.CreatePlanAsync(ask);
+
+            Console.WriteLine("\nPlan:\n");
+            Console.WriteLine(JsonSerializer.Serialize(plan, new JsonSerializerOptions { WriteIndented = true }));
+
+            var result = await _kernel.RunAsync(plan);
 
             return Ok(result.ToString());
         }
