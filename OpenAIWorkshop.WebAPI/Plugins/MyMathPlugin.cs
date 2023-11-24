@@ -17,7 +17,7 @@ namespace OpenAIWorkshop.WebAPI.Plugins
             [Description("The second number to add")] double number2
         )
         {
-            return input * number2;
+            return input + number2;
         }
 
         [SKFunction, Description("Subtract two numbers")]
