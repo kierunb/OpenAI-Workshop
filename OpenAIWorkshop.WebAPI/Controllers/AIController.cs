@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.KernelMemory;
 using Microsoft.SemanticKernel;
 using Microsoft.SemanticKernel.Connectors.AI.OpenAI;
 using Microsoft.SemanticKernel.Planners;
@@ -79,7 +80,65 @@ namespace OpenAIWorkshop.WebAPI.Controllers
             return Ok(result.ToString());
         }
 
+        [HttpGet("chat-rag")]
+        public async Task<IActionResult> ChatRag(string ask)
+        {
+            var memory = new KernelMemoryBuilder()
+            //.WithOpenAIDefaults(GetApiKey())
+
+            .WithAzureCognitiveSearch("https://cognitive-search-bk.search.windows.net", "")
+            //.WithAzureFormRecognizer // TODO
+            .Build<MemoryServerless>();
+
+
+            string prompt = 
+                @"Bot: Hello, I am a bot. I am here to help you with your finances.
+                Please use details provided below:
+                {{$memory}}   
+                
+                Provide an answer to the question.
+                ";
+
+            OpenAIRequestSettings requestSettings = new()
+            {
+                ExtensionData = {
+                    {"MaxTokens", 500},
+                    {"Temperature", 0.0},
+                    {"TopP", 0.0},
+                    {"PresencePenalty", 0.0},
+                    {"FrequencyPenalty", 0.0}
+                }
+            };
+
+            // we need to fetch data from memory
+           
+
+            var context = _kernel.CreateNewContext();
+            
+            var data = await memory.SearchAsync(ask, index: "regulamin-1", limit: 3, minRelevance: 0.80);
+
+            string dataString = String.Empty;
+            data.Results.ForEach(r =>
+            {
+                dataString += r.ToString(); 
+            });
+
+            context.Variables.Add("memory", dataString);
+
+            var chatFunction =
+                _kernel.CreateSemanticFunction(prompt, requestSettings, functionName: "ChatRag");
+
+            //var response = await _kernel.RunAsync(context, chatFunction);
+
+
+            return Ok();
+        }
+
     }
+
+
+
+
 
         
 }

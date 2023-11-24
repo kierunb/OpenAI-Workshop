@@ -14,6 +14,8 @@
 	<PackageReference Include="Microsoft.SemanticKernel.Planners.Core" Version="1.0.0-beta8" />
 	<PackageReference Include="Microsoft.SemanticKernel.Plugins.Memory" Version="1.0.0-beta8" />
 	<PackageReference Include="Microsoft.SemanticKernel.Reliability.Basic" Version="1.0.0-beta8" />
+	  <PackageReference Include="Microsoft.KernelMemory.Client" Version="0.10.231119.1-preview" />
+	  <PackageReference Include="Microsoft.KernelMemory.Core" Version="0.12.231123.1-preview" />
   </ItemGroup>
 
 </Project>

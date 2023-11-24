@@ -1,16 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+	<OutputType>Exe</OutputType>
+	<TargetFramework>net6.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.KernelMemory.Abstractions" Version="0.12.231123.1-preview" />
-    <PackageReference Include="Microsoft.KernelMemory.Core" Version="0.12.231123.1-preview" />
-    <PackageReference Include="Microsoft.KernelMemory.WebClient" Version="0.12.231123.1-preview" />
+	  <PackageReference Include="Microsoft.KernelMemory.Client" Version="0.10.231119.1-preview" />
+	  <PackageReference Include="Microsoft.KernelMemory.Core" Version="0.12.231123.1-preview" />
   </ItemGroup>
 
 </Project>
