@@ -25,7 +25,6 @@ builder.Services.AddTransient<IKernel>((serviceProvider) =>
     .Build();
 });
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
