@@ -21,3 +21,17 @@
 	- https://github.com/microsoft/kernel-memory
 - Architecture
 	- https://github.com/Azure-Samples/miyagi
+
+### appsetting.json
+```
+  "AzureChatCompletionService": {
+	"ModelId": "gpt-4",
+	"Endpoint": "",
+	"Key": "bc8469703a884c6496ac3202a1fa1518"
+  },
+  "AzureTextCompletionService": {
+	"ModelId": "gpt-35-turbo",
+	"Endpoint": "",
+	"Key": ""
+  }
+```
