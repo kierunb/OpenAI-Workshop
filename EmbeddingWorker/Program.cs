@@ -22,7 +22,12 @@ var memory = new KernelMemoryBuilder()
         Deployment = "text-embedding-ada-002",
         Auth = AzureOpenAIConfig.AuthTypes.APIKey
     })
-    .WithAzureCognitiveSearch("", "")
+    .WithAzureCognitiveSearch(new AzureCognitiveSearchConfig 
+    {
+        APIKey = "",
+        Endpoint = "",
+        Auth = AzureCognitiveSearchConfig.AuthTypes.APIKey
+    })
     //.WithAzureFormRecognizer // TODO
     .Build<MemoryServerless>();
 
